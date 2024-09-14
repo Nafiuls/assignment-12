@@ -5,10 +5,20 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./index.css";
-import Root from "../Root";
 import Home from "./Pages/Home";
 import HrForm from "./Forms/HrForm";
 import { ChakraProvider } from '@chakra-ui/react'
+import Root from "../Root";
+import AuthProvider from "./AuthProvider/AuthProvider";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
+
+
 
 const router = createBrowserRouter([
   {
@@ -29,13 +39,17 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <div className="max-w-6xl mx-auto">
-      <ChakraProvider>
-        <RouterProvider router={router}>
-          <Root />
-        </RouterProvider>
-      </ChakraProvider>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="max-w-6xl mx-auto">
+        <AuthProvider>
+          <ChakraProvider>
+            <RouterProvider router={router}>
+              <Root />
+            </RouterProvider>
+          </ChakraProvider>
+        </AuthProvider>
+      </div>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
