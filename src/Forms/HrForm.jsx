@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import UseAuth from "../Hooks/UseAuth";
 import UseAxios from "../Hooks/UseAxios";
+import { toast } from "react-toastify";
 
 export default function HrForm() {
   const axiosCommon = UseAxios()
@@ -40,6 +41,7 @@ export default function HrForm() {
           .then(res => {
             if (res.data.insertedId) {
               // show a toast 
+              toast.success('Sign Up successfull')
             }
           })
           .catch(error => {
@@ -54,7 +56,7 @@ export default function HrForm() {
 
 
   return (
-    <div className="min-h-screen">
+    <div>
       <SectionTitle heading={'join as hr'} />
       {/* actual signup form */}
       <form className="max-w-[50%] flex flex-col gap-5 mx-auto border-[2px] rounded p-5" onSubmit={handleSubmit}>

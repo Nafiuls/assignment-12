@@ -10,7 +10,7 @@ const UseRole = () => {
     queryKey: ['userInfo', user?.email],
     queryFn: async () => {
       const res = await axiosCommon(`/users/role/${user?.email}`)
-      console.log(res.data)
+      // console.log(res.data)
       return res.data
     }
   }

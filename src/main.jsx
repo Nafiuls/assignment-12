@@ -14,6 +14,15 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import Employee from "./Forms/Employee";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Login from "./Forms/Login";
+import AddAsset from "./hrpages/AddAsset";
+import AddEmployee from "./hrpages/AddEmployee";
+import AssetList from "./hrpages/AssetList";
+import Request from "./hrpages/Request";
+import EmployeeList from "./hrpages/EmployeeList";
 
 const queryClient = new QueryClient()
 
@@ -32,6 +41,35 @@ const router = createBrowserRouter([
       {
         path: '/hrForm',
         element: <HrForm />
+      },
+      {
+        path: '/employeeForm',
+        element: <Employee />
+      },
+      {
+        path: '/login',
+        element: <Login />
+      },
+      // hr manager related path
+      {
+        path: '/addAsset',
+        element: <AddAsset />
+      },
+      {
+        path: 'addEmployee',
+        element: <AddEmployee />
+      },
+      {
+        path: 'assetList',
+        element: <AssetList />
+      },
+      {
+        path: 'requests',
+        element: <Request />
+      },
+      {
+        path: 'employeeList',
+        element: <EmployeeList />
       }
     ]
   },
@@ -40,15 +78,26 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <div className="max-w-6xl mx-auto">
-        <AuthProvider>
-          <ChakraProvider>
-            <RouterProvider router={router}>
-              <Root />
-            </RouterProvider>
-          </ChakraProvider>
-        </AuthProvider>
-      </div>
+      <AuthProvider>
+        <ToastContainer
+          position="top-center"
+          autoClose={2500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition="bounce"
+        />
+        <ChakraProvider>
+          <RouterProvider router={router}>
+            <Root />
+          </RouterProvider>
+        </ChakraProvider>
+      </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );
