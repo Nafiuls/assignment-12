@@ -23,6 +23,7 @@ import AddEmployee from "./hrpages/AddEmployee";
 import AssetList from "./hrpages/AssetList";
 import Request from "./hrpages/Request";
 import EmployeeList from "./hrpages/EmployeeList";
+import UpdateAsset from "./Forms/UpdateAsset";
 
 
 const queryClient = new QueryClient()
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: 'employeeList',
         element: <EmployeeList />
+      },
+      {
+        path: 'updateForm/:id',
+        element: <UpdateAsset />
       }
     ]
   },

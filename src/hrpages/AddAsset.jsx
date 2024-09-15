@@ -38,7 +38,7 @@ const AddAsset = () => {
       <form onSubmit={handleSubmit} className="max-w-[35%] flex flex-col gap-5 mx-auto border-[2px] rounded p-5">
         <FormControl>
           <FormLabel>Product Name</FormLabel>
-          <Input type="text" name="productName" placeholder="Write Your Email Here"></Input>
+          <Input type="text" name="productName" placeholder="Write product name Here"></Input>
         </FormControl>
         <FormControl>
           <FormLabel>Product Type</FormLabel>

@@ -2,6 +2,7 @@ import { Box, Button, Flex, Text, Stack, useColorModeValue } from "@chakra-ui/re
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import UseAxios from "../Hooks/UseAxios";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 
 
@@ -53,13 +54,15 @@ const Hrcard = ({ asset, refetch }) => {
           <Text fontWeight={'semibold'}>Type: {productType}</Text>
           <Text fontWeight={'semibold'}>Date Added: {createdAt}</Text>
           <Flex justify="space-between">
-            <Button
-              colorScheme="teal"
-              leftIcon={<EditIcon />}
-              size="sm"
-            >
-              Update
-            </Button>
+            <Link to={`/updateForm/${asset._id}`}>
+              <Button
+                colorScheme="teal"
+                leftIcon={<EditIcon />}
+                size="sm"
+              >
+                Update
+              </Button>
+            </Link>
             <Button
               colorScheme="red"
               leftIcon={<DeleteIcon />}
