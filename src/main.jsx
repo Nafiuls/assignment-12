@@ -24,6 +24,7 @@ import AssetList from "./hrpages/AssetList";
 import Request from "./hrpages/Request";
 import EmployeeList from "./hrpages/EmployeeList";
 
+
 const queryClient = new QueryClient()
 
 
@@ -90,7 +91,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           draggable
           pauseOnHover
           theme="dark"
-          transition="bounce"
+          transition="true"
         />
         <ChakraProvider>
           <RouterProvider router={router}>
