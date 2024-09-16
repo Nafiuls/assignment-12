@@ -17,6 +17,7 @@ const Employee = () => {
     e.preventDefault()
     const form = e.target
     // creating a user
+    const name = form.fullName.value
     const email = form.email.value
     const pass = form.pass.value
     const dateOfBirth = dob

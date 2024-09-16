@@ -87,7 +87,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <ToastContainer
           position="top-center"
-          autoClose={2500}
+          autoClose={2000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
@@ -95,8 +95,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="dark"
-          transition="true"
+          theme="light"
+        // transition={Bounce}
         />
         <ChakraProvider>
           <RouterProvider router={router}>
