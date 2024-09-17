@@ -24,6 +24,7 @@ import AssetList from "./hrpages/AssetList";
 import Request from "./hrpages/Request";
 import EmployeeList from "./hrpages/EmployeeList";
 import UpdateAsset from "./Forms/UpdateAsset";
+import Profile from "./Pages/Profile";
 
 
 const queryClient = new QueryClient()
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />
+      },
+      {
+        path: '/profile',
+        element: <Profile />
       },
       // hr manager related path
       {

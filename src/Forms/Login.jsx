@@ -10,6 +10,7 @@ export default function Login() {
   const [, , refetch] = UseRole()
 
 
+
   const handleSubmit = e => {
     e.preventDefault()
     const form = e.target
@@ -37,7 +38,7 @@ export default function Login() {
           <FormLabel>Password</FormLabel>
           <Input type="password" name="pass" placeholder="Write Your Password Here"></Input>
         </FormControl>
-        <Button type="submit" bgColor={"black"} color={"white"} _hover={{ color: 'black', bgColor: 'grey' }}>Sign Up</Button>
+        <Button type="submit" bgColor={"black"} color={"white"} _hover={{ color: 'black', bgColor: 'grey' }}>Login</Button>
         <Divider></Divider>
         <SocialLogin />
       </form>

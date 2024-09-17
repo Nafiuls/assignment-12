@@ -7,10 +7,12 @@ import UseAuth from "../Hooks/UseAuth";
 import UseAxios from "../Hooks/UseAxios";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { toast } from "react-toastify";
+import UseRole from "../Hooks/UseRole";
 
 const Employee = () => {
-  const { createUser } = UseAuth()
+  const { createUser, updateUser } = UseAuth()
   const axiosCommon = UseAxios()
+  const [, , refetch] = UseRole()
   const [dob, setDob] = useState(new Date())
   // const handlesubmit form
   const handleSubmit = (e) => {
@@ -18,13 +20,16 @@ const Employee = () => {
     const form = e.target
     // creating a user
     const name = form.fullName.value
+    const image = form.image.value
     const email = form.email.value
     const pass = form.pass.value
     const dateOfBirth = dob
     const role = 'employee'
     createUser(email, pass)
       .then(res => {
-        console.log(res.user)
+        updateUser(name, image)
+
+        // console.log(res.user)
         // after user created post in the database
         const user = {
           name,
@@ -37,6 +42,7 @@ const Employee = () => {
           .then(res => {
             if (res.data.insertedId) {
               toast.success('Sign up successfull')
+              refetch()
             }
           })
 
@@ -50,6 +56,10 @@ const Employee = () => {
         <FormControl>
           <FormLabel>Full Name</FormLabel>
           <Input type="text" name="fullName" placeholder="Write Your Name Here"></Input>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Profile Picture URL</FormLabel>
+          <Input type="text" name="image" placeholder="Profile Picture Live Link"></Input>
         </FormControl>
         <FormControl>
           <FormLabel>Email</FormLabel>

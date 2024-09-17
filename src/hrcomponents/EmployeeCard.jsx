@@ -10,31 +10,32 @@ import {
 import UseAxios from '../Hooks/UseAxios'
 import UseAuth from '../Hooks/UseAuth'
 import { toast } from 'react-toastify'
+import UseRole from '../Hooks/UseRole'
 const EmployeeCard = ({ item }) => {
   const { user } = UseAuth()
   const hrEmail = user?.email
   console.log(hrEmail)
   const axiosCommon = UseAxios()
-  const { name, role, email } = item
+  const [userInfo] = UseRole()
+  const { name, role, email, _id } = item
+  const companyName = userInfo.companyName
   // add employee on the database
-
-
   const employee = {
     name,
+    companyName,
     role,
     email,
     HrEmail: hrEmail
     // image
   }
-
-
-  const handlePost = () => {
+  const handlePost = (id) => {
     axiosCommon.post('/addEmployee', employee)
       .then(res => {
         console.log(res.data)
         if (res.data.insertedId) {
           // successfull toast
           toast.success('Employee added successfully')
+          axiosCommon.patch(`/employee/update/${id}`, employee)
         }
       })
       .catch(err => {
@@ -76,7 +77,7 @@ const EmployeeCard = ({ item }) => {
           </Heading>
           <Stack mt={8} direction={'row'} spacing={4}>
             <Button
-              onClick={handlePost}
+              onClick={() => handlePost(_id)}
               flex={1}
               fontSize={'sm'}
               rounded={'full'}

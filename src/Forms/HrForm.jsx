@@ -6,10 +6,12 @@ import { useState } from "react";
 import UseAuth from "../Hooks/UseAuth";
 import UseAxios from "../Hooks/UseAxios";
 import { toast } from "react-toastify";
+import UseRole from "../Hooks/UseRole";
 
 export default function HrForm() {
   const axiosCommon = UseAxios()
-  const { createUser } = UseAuth()
+  const [, , refetch] = UseRole()
+  const { createUser, updateUser } = UseAuth()
   const [dob, setDob] = useState(new Date())
 
   // form submit function
@@ -17,6 +19,7 @@ export default function HrForm() {
     e.preventDefault();
     const form = e.target
     const name = form.fullName.value
+    const image = form.image.value
     const companyName = form.companyName.value
     const logo = form.logo.files[0]
     const email = form.email.value
@@ -27,6 +30,7 @@ export default function HrForm() {
     // creating user here
     createUser(email, pass)
       .then(res => {
+        updateUser(name, image)
         // save to database after login
         const user = {
           name,
@@ -42,6 +46,7 @@ export default function HrForm() {
             if (res.data.insertedId) {
               // show a toast 
               toast.success('Sign Up successfull')
+              refetch()
             }
           })
           .catch(error => {
@@ -63,6 +68,10 @@ export default function HrForm() {
         <FormControl>
           <FormLabel>Full Name</FormLabel>
           <Input type="text" name="fullName" placeholder="Write Your Name Here"></Input>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Profile Picture URL</FormLabel>
+          <Input type="text" name="image" placeholder="Profile Picture Live Link"></Input>
         </FormControl>
         <FormControl>
           <FormLabel>Company Name</FormLabel>

@@ -1,32 +1,71 @@
-import { Button } from "@chakra-ui/react";
+import { Avatar, Button } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import UseAuth from "../Hooks/UseAuth";
 import UseRole from "../Hooks/UseRole";
+import { useQuery } from "@tanstack/react-query";
+import UseAxios from "../Hooks/UseAxios";
+import { Home, UserPlus, List, PlusSquare, Inbox, Users, LogInIcon, LogOutIcon, User, HomeIcon, Shield, Clipboard } from "lucide-react";
 
 export default function Navbar() {
+  const axiosCommon = UseAxios()
   const { logout, user } = UseAuth()
   const [userInfo] = UseRole()
+  const { data } = useQuery(
+    {
+      queryKey: ['data', user?.email],
+      queryFn: async () => {
+        const res = await axiosCommon(`/employeeInfo/${user?.email}`)
+        return res.data
+
+      }
+    }
+  )
+  console.log(data)
 
   return (
     <div>
       <nav className="flex justify-between items-center border-b-2 p-3">
         {/* dynamic logo */}
-        <div>
-          {userInfo?.companyName ? <><h1 className="text-3xl">{userInfo.companyName}</h1></> : <><h1 className="text-3xl">NEON</h1></>}
-        </div>
+
+
+        {userInfo?.companyName && < div >
+          <h1 className="text-3xl">{userInfo.companyName}</h1>
+        </div>}
+        {data?.companyName && <>
+          <h1 className="text-3xl">{data?.companyName}</h1>
+        </>
+        }
+        {
+          !data?.companyName && !userInfo?.companyName && < h1 className="text-3xl">NEON</h1>
+        }
         {/* dynamic navigation */}
         <div>
-          <ul className="text-xl flex items-center gap-4">
+          <ul className="text-xl hidden font-semibold sm:flex items-center gap-4">
             {
               userInfo?.role === 'hr' && (
                 <>
                   <ul className="flex items-center gap-5">
-                    <NavLink to={'/'}>Home</NavLink>
-                    <NavLink to={'addAsset'}>Add asset</NavLink>
-                    <NavLink to={'addEmployee'}>Add employee</NavLink>
-                    <NavLink to={'assetList'}>Asset List</NavLink>
-                    <NavLink to={'requests'}>All requests</NavLink>
-                    <NavLink to={'employeeList'}>Employee List</NavLink>
+                    <NavLink className={'flex items-center gap-2'} to={'/'}>
+                      <Home />Home
+                    </NavLink>
+                    <NavLink className={'flex items-center gap-2 '} to={'addAsset'}>
+                      <PlusSquare />Add asset
+                    </NavLink>
+                    <NavLink className={'flex items-center gap-2'} to={'addEmployee'}>
+                      <UserPlus /> Add Employee
+                    </NavLink>
+                    <NavLink className={'flex items-center gap-2'} to={'assetList'}>
+                      <List /> Asset List
+                    </NavLink>
+                    <NavLink className={'flex items-center gap-2'} to={'requests'}>
+                      <Inbox /> Requests
+                    </NavLink>
+                    <NavLink className={'flex items-center gap-2'} to={'employeeList'}>
+                      <Users /> Employee List
+                    </NavLink>
+                    <NavLink className={'flex items-center gap-2'} to={'profile'}>
+                      <User /> Profile
+                    </NavLink>
                   </ul>
                 </>
               )
@@ -41,12 +80,10 @@ export default function Navbar() {
             {
               !userInfo.role && (
                 <>
-                  <NavLink to={'/'}>home</NavLink>
-                  <NavLink to={'/hrForm'}>join as hr</NavLink>
-                  <NavLink to={'/employeeForm'}>join as employee</NavLink>
+                  <NavLink className={'flex items-center gap-2'} to={'/'}><HomeIcon />Home</NavLink>
+                  <NavLink className={'flex items-center gap-2'} to={'/hrForm'}><Shield /> Join as HR</NavLink>
+                  <NavLink className={'flex items-center gap-2'} to={'/employeeForm'}><Clipboard /> Join as Employee</NavLink>
                 </>
-
-
               )}
           </ul>
         </div>
@@ -54,9 +91,12 @@ export default function Navbar() {
         <div>
           {
             user ? (
-              <Button onClick={logout}>Logout</Button>
+              <div className="flex items-center gap-2">
+                <Avatar src={user?.photoURL}></Avatar>
+                <Button onClick={logout}><LogOutIcon />Logout</Button>
+              </div>
             ) : (
-              <NavLink to={'login'}><Button>Login</Button></NavLink>
+              <NavLink to={'login'}><Button><LogInIcon />Login</Button></NavLink>
             )
           }
         </div>

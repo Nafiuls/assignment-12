@@ -5,6 +5,7 @@ import EmployeeCard from "../hrcomponents/EmployeeCard"
 
 const AddEmployee = () => {
   const axiosCommon = UseAxios()
+
   const role = 'employee'
   const { data: users = [], isPending, refetch } = useQuery(
     {
