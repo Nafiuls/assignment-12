@@ -2,29 +2,17 @@ import { Avatar, Button } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import UseAuth from "../Hooks/UseAuth";
 import UseRole from "../Hooks/UseRole";
-import { useQuery } from "@tanstack/react-query";
-import UseAxios from "../Hooks/UseAxios";
-import { Home, UserPlus, List, PlusSquare, Inbox, Users, LogInIcon, LogOutIcon, User, HomeIcon, Shield, Clipboard } from "lucide-react";
+import { Home, UserPlus, List, PlusSquare, Inbox, Users, LogInIcon, LogOutIcon, User, HomeIcon, Shield, Clipboard, Box, PackagePlus } from "lucide-react";
+import UseEmployee from "../Hooks/UseEmployee";
 
 export default function Navbar() {
-  const axiosCommon = UseAxios()
   const { logout, user } = UseAuth()
   const [userInfo] = UseRole()
-  const { data } = useQuery(
-    {
-      queryKey: ['data', user?.email],
-      queryFn: async () => {
-        const res = await axiosCommon(`/employeeInfo/${user?.email}`)
-        return res.data
-
-      }
-    }
-  )
-  console.log(data)
+  const [data] = UseEmployee()
 
   return (
     <div>
-      <nav className="flex justify-between items-center border-b-2 p-3">
+      <nav className="flex w-full  justify-between items-center border-b-2 p-3">
         {/* dynamic logo */}
 
 
@@ -40,40 +28,57 @@ export default function Navbar() {
         }
         {/* dynamic navigation */}
         <div>
-          <ul className="text-xl hidden font-semibold sm:flex items-center gap-4">
+          <ul className="text-xl hidden font-semibold sm:flex items-center space-x-5">
+            {/* Navlinks and routes for the HR role */}
             {
               userInfo?.role === 'hr' && (
                 <>
                   <ul className="flex items-center gap-5">
-                    <NavLink className={'flex items-center gap-2'} to={'/'}>
+                    <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'/'}>
                       <Home />Home
                     </NavLink>
-                    <NavLink className={'flex items-center gap-2 '} to={'addAsset'}>
+                    <NavLink className={'hover:scale-110 transition-all flex items-center gap-2 '} to={'addAsset'}>
                       <PlusSquare />Add asset
                     </NavLink>
-                    <NavLink className={'flex items-center gap-2'} to={'addEmployee'}>
+                    <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'addEmployee'}>
                       <UserPlus /> Add Employee
                     </NavLink>
-                    <NavLink className={'flex items-center gap-2'} to={'assetList'}>
+                    <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'assetList'}>
                       <List /> Asset List
                     </NavLink>
-                    <NavLink className={'flex items-center gap-2'} to={'requests'}>
+                    <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'requests'}>
                       <Inbox /> Requests
                     </NavLink>
-                    <NavLink className={'flex items-center gap-2'} to={'employeeList'}>
+                    <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'employeeList'}>
                       <Users /> Employee List
                     </NavLink>
-                    <NavLink className={'flex items-center gap-2'} to={'profile'}>
+                    <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'profile'}>
                       <User /> Profile
                     </NavLink>
                   </ul>
                 </>
               )
             }
+            {/* Navlink and routes for the Employee Role */}
             {
               userInfo?.role === 'employee' && (
                 <>
-                  <p>The role is employee</p>
+                  <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'/'}>
+                    <Home />Home
+                  </NavLink>
+                  <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'myAsset'}>
+                    <Box />My Assets
+                  </NavLink>
+                  <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'myTeam'}>
+                    <Users />My Team
+                  </NavLink>
+                  <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'requestAsset'}>
+                    <PackagePlus />Request Asset
+                  </NavLink>
+                  <NavLink className={'hover:scale-110 transition-all flex items-center gap-2'} to={'profile'}>
+                    <User />Profile
+                  </NavLink>
+
                 </>
               )
             }

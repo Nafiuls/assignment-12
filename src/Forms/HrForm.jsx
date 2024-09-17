@@ -26,7 +26,6 @@ export default function HrForm() {
     const pass = form.pass.value
     const dateOfBirth = dob
     const role = 'hr'
-
     // creating user here
     createUser(email, pass)
       .then(res => {
@@ -56,10 +55,7 @@ export default function HrForm() {
       .catch(error => {
         console.log(error)
       })
-
   }
-
-
   return (
     <div>
       <SectionTitle heading={'join as hr'} />
@@ -79,7 +75,7 @@ export default function HrForm() {
         </FormControl>
         <FormControl>
           <FormLabel>Company Logo</FormLabel>
-          <Input type="file" name="logo" placeholder="Select a file"></Input>
+          <Input type="file" name="logo" className="file:border-none file:bg-black file:text-white file:rounded-full file:mt-1 file:mr-5 file:px-3 hover:file:cursor-pointer" placeholder="Company logo" border={"none"} _focusVisible={false} autoComplete="none"></Input>
         </FormControl>
         <FormControl>
           <FormLabel>Email</FormLabel>

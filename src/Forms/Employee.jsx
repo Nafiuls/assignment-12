@@ -63,7 +63,7 @@ const Employee = () => {
         </FormControl>
         <FormControl>
           <FormLabel>Email</FormLabel>
-          <Input type="email" name="email" placeholder="Write Your Email Here"></Input>
+          <Input type="email" className="" name="email" placeholder="Write Your Email Here"></Input>
         </FormControl>
         <FormControl>
           <FormLabel>Password</FormLabel>

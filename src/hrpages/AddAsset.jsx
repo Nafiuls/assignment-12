@@ -16,7 +16,9 @@ const AddAsset = () => {
     e.preventDefault()
     const form = e.target
     const name = form.productName.value
-    const quantity = form.quantity.value
+    const number = form.quantity.value
+    const quantity = parseInt(number) // converting to integer from string
+    console.log(typeof quantity)
     const productType = type
     const ownerEmail = user?.email
     const status = 'In Stock'

@@ -25,6 +25,9 @@ import Request from "./hrpages/Request";
 import EmployeeList from "./hrpages/EmployeeList";
 import UpdateAsset from "./Forms/UpdateAsset";
 import Profile from "./Pages/Profile";
+import MyAsset from "./employeepages/MyAsset";
+import MyTeam from "./employeepages/MyTeam";
+import RequestAsset from "./employeepages/RequestAsset";
 
 
 const queryClient = new QueryClient()
@@ -81,7 +84,20 @@ const router = createBrowserRouter([
       {
         path: 'updateForm/:id',
         element: <UpdateAsset />
-      }
+      },
+      // Employee related routes
+      {
+        path: '/myAsset',
+        element: <MyAsset />
+      },
+      {
+        path: '/myTeam',
+        element: <MyTeam />
+      },
+      {
+        path: '/requestAsset',
+        element: <RequestAsset />
+      },
     ]
   },
 ]);
