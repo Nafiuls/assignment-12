@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import UseEmployee from "../Hooks/UseEmployee"
 import UseAxios from "../Hooks/UseAxios"
 import SectionTitle from "../Shared/SectionTitle"
+import EmCard from "../EmComponents/EmCard"
 
 const RequestAsset = () => {
   const [data] = UseEmployee()
@@ -23,8 +24,13 @@ const RequestAsset = () => {
   return (
     <div>
       <SectionTitle heading={'request an asset'} />
-      <div className="my-10  grid grid-cols-1 sm:grid-cols-3">
+      <div className="my-10 gap-4  grid grid-cols-1 sm:grid-cols-3">
         {/* render card to show detailse */}
+        {
+          assets.map(item =>
+            <EmCard key={item._id} item={item}></EmCard>
+          )
+        }
       </div>
     </div>
   )
